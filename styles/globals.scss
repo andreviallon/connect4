@@ -8,3 +8,41 @@ body,
 .app-container {
   height: 100%;
 }
+
+.disk1 {
+  grid-area: 1 / 1 / span 1 / span 1;
+}
+
+.disk2 {
+  grid-area: 2 / 1 / span 1 / span 1;
+}
+
+.disk3 {
+  @apply transition duration-300 ease-in-out;
+  grid-area: 2 / 2 / span 1 / span 1;
+}
+
+.disk4 {
+  @apply transition duration-300 ease-in-out;
+  grid-area: 1 / 2 / span 1 / span 1;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: 6px;
+
+  &:hover {
+    .disk3 {
+      transform: translateY(-1.87rem);
+    }
+
+    .disk4 {
+      transform: translateY(1.87rem);
+    }
+  }
+}
+
+.border-3 {
+  border-width: 3px;
+}
