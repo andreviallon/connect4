@@ -8,8 +8,12 @@ const BOARD_ROWS = 6;
 export const Board: React.FC<{
   isGameOver: boolean;
   currentPlayer: Player;
-}> = ({ isGameOver, currentPlayer }) => {
+  setCurrentPlayer: () => void;
+}> = ({ isGameOver, currentPlayer, setCurrentPlayer }) => {
   const [board, setBoard] = useState<(Player | undefined)[][]>([]);
+  const [availableSlots, setAvailableSlots] = useState<Array<number>>(
+    Array.from(Array(BOARD_COLS)).map(() => BOARD_ROWS - 1)
+  );
 
   useEffect(() => {
     setupBoard();
@@ -23,15 +27,24 @@ export const Board: React.FC<{
     setBoard(baseBoard);
   };
 
-  const handleSetDisk = (col: number, row: number) => {
-    if (isGameOver || board[col][row] !== undefined) {
-      return;
-    }
+  const handleSetDisk = (colIndex: number, rowIndex: number) => {
+    const whereToPlaceTheNextPiece = availableSlots[colIndex];
+    const diskPosition = availableSlots[colIndex] - 1;
 
-    setBoard((prev) => {
-      prev[col][row] = currentPlayer;
+    if (isGameOver || board[colIndex][rowIndex] !== undefined) return;
+    if (whereToPlaceTheNextPiece <= 0) return;
+
+    setAvailableSlots((prev) => {
+      prev[colIndex] = diskPosition;
       return [...prev];
     });
+
+    setBoard((prev) => {
+      prev[colIndex][whereToPlaceTheNextPiece] = currentPlayer;
+      return [...prev];
+    });
+
+    setCurrentPlayer();
   };
 
   return (
