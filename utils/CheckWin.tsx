@@ -63,10 +63,6 @@ export const checkAntiDiagonalWin = (
   for (let i = 0; i < board.length; i++) {
     const row = board[i];
     for (let j = 0; j < row.length; j++) {
-      console.log("board[i][j] =>", board[i][j]);
-      console.log("board[i + 1][j - 1] =>", board[i + 1][j - 1]);
-      console.log("board[i + 1][j - 1] =>", board[i + 1][j - 2]);
-      console.log("board[i + 1][j - 1] =>", board[i + 1][j - 3]);
       if (
         board[i][j] &&
         board[i][j] === board[i + 1][j - 1] &&
